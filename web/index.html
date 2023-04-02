@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="StartModule" ng-controller="StartController as startController">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prueba Técnica - AngularJS</title>
+
+    <!-- AngularJS library -->
+    <script src="./js/core/angularjs.min.js"></script>
+    <script src="./js/core/angularjs-route.min.js"></script>    
+
+    <script src="./js/app/app.js"></script>
+    <script src="./js/app/config.js"></script>
+
+    <!-- AngularJS :: Controllers -->
+    <script src="./js/app/inicio.js"></script>
+    <script src="./js/app/peliculas.js"></script>
+
+    <!-- Bootstrap CSS :: Files -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <!-- Start:: AngularJS - Shared Component -->
+    <div ng-include="navbarComponent"></div>
+    <!-- End:: AngularJS - Shared Component -->
+
+    <div class="container mx-auto mt-5">
+        <div ng-view></div>
+    </div>
+
+    <!-- Bootstrap JS :: Files -->
+    <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>

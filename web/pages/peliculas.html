@@ -1,0 +1,89 @@
+<div class="mb-5" ng-app="myApp" ng-controller="PeliculasController">
+  <div class="mb-3">
+    <form>
+      <input class="form-control" type="text" ng-model="query" placeholder="Buscar películas...">
+      <button ng-click="searchMovies()" type="submit">Buscar</button>
+    </form>
+  </div> 
+
+  <div class="container row" >
+      <!-- TODO: Con el ng-for deberás hacer que por cada pelicula que venga en la API, se deberá mostrar este mismo diseño de la carta. -->
+      <div class="col-sm-4 mr-3 mb-3" ng-repeat="list in listMovies" >
+        <div class="card">
+          <img class="object-fit-cover" height="260" ng-src="https://image.tmdb.org/t/p/w500{{ list.backdrop_path }}" >
+          <div class="card-body" >
+            <h3 class="card-title" >{{list.title}}</h3>
+            <p class="card-text">{{list.overview}}</p>
+            <ul class="list-group mb-4">
+              <li class="list-group-item"><strong>Fecha de estreno   </strong>{{list.release_date}}</li>
+              <li class="list-group-item"><strong>Género</strong>
+                <span>{{ getGenre(list.genre_ids) }}</span>
+              </li>
+            </ul>
+            <button ng-click="getMovieComments(list.id)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewCommentsMovie">
+              Ver comentarios
+            </button>
+          </div>
+        </div>
+
+        <form ng-submit="create(comment, list.id) " >
+          <div class="modal fade" id="viewCommentsMovie" tabindex="-1" aria-labelledby="viewCommentsMovie" aria-hidden="true"  >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!-- TODO: Agregar el titulo de la película. -->
+                  <h1 class="modal-title fs-5" id="viewCommentsMovieLabel">{{list.title}}</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <ul class="list-group mb-4" >
+                    <li  class="list-group-item d-flex align-items-center justify-content-between" ng-repeat="comment in listComments">
+                      <P>{{ comment.content}}<sub>{{ comment.author}}</sub></P>
+                    </li>
+                  </ul>
+                  <ul class="list-group mb-4" >
+                    <li  class="list-group-item d-flex align-items-center justify-content-between" ng-repeat="comment in listComments">
+                      <P>{{ comment.content}}<sub>{{ comment.author}}</sub></P>
+                      <button type="button" class="btn btn-danger">Eliminar</button>
+                    </li>
+                  </ul>
+                  <div class="mb-3">
+                    
+                    <label for="textAreaNewComment" class="form-label m-0 h6">Nuevo comentario</label>
+                    <textarea class="form-control" ng-model="comment" rows="3"></textarea>
+                    
+                  </div>        
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+  </div>
+
+  <nav ng-show="!serch">
+    <ul class="pagination justify-content-center mt-3">
+      <li class="page-item" ng-class="{ 'disabled': page == 1 }">
+        <a class="page-link btn btn-primary" ng-click="changePage(1)">Primera</a>
+      </li>
+      <li class="page-item" ng-class=" {'disabled': page == 1 }">
+        <a class="page-link btn btn-primary" ng-click="changePage(page-1)">Anterior</a>
+      </li>
+      <li class="page-item" ng-class=" {'disabled': page == 82 }">
+        <a class="page-link btn btn-primary"  ng-click="changePage(page+1)">Siguiente</a>
+      </li>
+      <li class="page-item" ng-class="{ 'disabled': page == 82 }">
+        <a class="page-link btn btn-primary" ng-click="changePage(82) ">Último</a>
+      </li>
+    </ul>
+  </nav>
+    <!-- Modal -->
+  
+</div>
+
